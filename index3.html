@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock Website</title>
+    <style>
+        body {
+            background-color: darkblue;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: blue;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+        }
+
+        .clock {
+            width: 200px;
+            height: 200px;
+            border: 10px solid white;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .hour, .minute, .second {
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background-color: white;
+            top: 50%;
+            transform-origin: 100%;
+            transform: translateY(-50%);
+            transition: transform 0.5s cubic-bezier(0.4, 2.1, 0.3, 1);
+        }
+
+        .minute {
+            height: 1.5px;
+        }
+
+        .second {
+            background-color: red; /* You can change the second hand color */
+            height: 1px;
+        }
+
+        footer {
+            background-color: blue;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Analog Clock Website</h1>
+    </header>
+    
+    <div class="container">
+        <div class="clock">
+            <div class="hour" id="hour"></div>
+            <div class="minute" id="minute"></div>
+            <div class="second" id="second"></div>
+        </div>
+        <div id="clock-description">
+            <h2>About the Analog Clock</h2>
+            <p>This analog clock displays the current time with blue, dark, and white colors. The clock hands move in real-time to indicate the hours, minutes, and seconds.</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2023 Analog Clock Website
+    </footer>
+
+    <script>
+        function updateClock() {
+            const hourElement = document.getElementById("hour");
+            const minuteElement = document.getElementById("minute");
+            const secondElement = document.getElementById("second");
+
+            const now = new Date();
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourDeg = (360 / 12) * hours + (360 / 12) * (minutes / 60);
+            const minuteDeg = (360 / 60) * minutes + (360 / 60) * (seconds / 60);
+            const secondDeg = (360 / 60) * seconds;
+
+            hourElement.style.transform = `rotate(${hourDeg}deg)`;
+            minuteElement.style.transform = `rotate(${minuteDeg}deg)`;
+            secondElement.style.transform = `rotate(${secondDeg}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
